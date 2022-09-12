@@ -1,8 +1,7 @@
 package fuad.hajiyev.abc_app.controllers;
 
-import fuad.hajiyev.abc_app.dto.LikeCreateRequest;
+import fuad.hajiyev.abc_app.dto_request.LikeCreateRequest;
 import fuad.hajiyev.abc_app.dto_response.LikeResponse;
-import fuad.hajiyev.abc_app.entities.Comment;
 import fuad.hajiyev.abc_app.entities.Like;
 import fuad.hajiyev.abc_app.services.LikeService;
 import lombok.AllArgsConstructor;

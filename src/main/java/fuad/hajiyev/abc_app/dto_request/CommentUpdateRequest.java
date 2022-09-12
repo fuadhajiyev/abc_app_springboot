@@ -1,4 +1,4 @@
-package fuad.hajiyev.abc_app.dto;
+package fuad.hajiyev.abc_app.dto_request;
 
 import lombok.Data;
 

@@ -1,8 +1,9 @@
 package fuad.hajiyev.abc_app.services;
 
 
-import fuad.hajiyev.abc_app.dto.PostCreateRequest;
-import fuad.hajiyev.abc_app.dto.PostUpdateRequest;
+import fuad.hajiyev.abc_app.dto_request.PostCreateRequest;
+import fuad.hajiyev.abc_app.dto_request.PostUpdateRequest;
+import fuad.hajiyev.abc_app.dto_response.PostResponse;
 import fuad.hajiyev.abc_app.entities.Post;
 import fuad.hajiyev.abc_app.entities.User;
 import fuad.hajiyev.abc_app.repos.PostRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -20,11 +22,14 @@ public class PostService {
     final UserService userService;
 
 
-    public List<Post> getPostsFromService(Optional<Long> userId) {
+    public List<PostResponse> getPostsFromService(Optional<Long> userId) {
+        List <Post> list;
         if (userId.isPresent()) {
-            return postRepository.findByUserId(userId.get());
+            list = postRepository.findByUserId(userId.get());
+        }else {
+            list = postRepository.findAll();
         }
-        return postRepository.findAll();
+        return list.stream().map(p -> new PostResponse(p)).collect(Collectors.toList());
     }
 
     public Post getPostByIdFromService(Long postId) {
