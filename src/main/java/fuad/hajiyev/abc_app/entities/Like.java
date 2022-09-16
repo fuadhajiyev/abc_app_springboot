@@ -17,6 +17,7 @@ import javax.persistence.*;
 public class Like {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

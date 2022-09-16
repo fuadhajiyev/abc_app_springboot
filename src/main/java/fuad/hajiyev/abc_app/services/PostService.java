@@ -40,7 +40,7 @@ public class PostService {
 
 
     public Post createPostFromService(PostCreateRequest newPostDto) {
-        User user = userService.getUserByIdFromService(newPostDto.getId());
+        User user = userService.getUserByIdFromService(newPostDto.getUserId());
         if (user == null) {
             return null;
         }

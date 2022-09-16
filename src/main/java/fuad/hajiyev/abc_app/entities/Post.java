@@ -15,6 +15,7 @@ import javax.persistence.*;
 public class Post {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
