@@ -1,7 +1,8 @@
 package fuad.hajiyev.abc_app.controllers;
 
-import fuad.hajiyev.abc_app.dto.PostCreateRequest;
-import fuad.hajiyev.abc_app.dto.PostUpdateRequest;
+import fuad.hajiyev.abc_app.dto_request.PostCreateRequest;
+import fuad.hajiyev.abc_app.dto_request.PostUpdateRequest;
+import fuad.hajiyev.abc_app.dto_response.PostResponse;
 import fuad.hajiyev.abc_app.entities.Post;
 import fuad.hajiyev.abc_app.services.PostService;
 import lombok.AllArgsConstructor;
@@ -21,9 +22,9 @@ public class PostController {
 
 
     @GetMapping
-    public ResponseEntity<List<Post>> getPosts(@RequestParam Optional<Long> userId) {
+    public ResponseEntity<List<PostResponse>> getPosts(@RequestParam Optional<Long> userId) {
 
-        List<Post> posts = postService.getPostsFromService(userId);
+        List<PostResponse> posts = postService.getPostsFromService(userId);
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 

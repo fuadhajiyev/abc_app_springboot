@@ -1,7 +1,7 @@
 package fuad.hajiyev.abc_app.services;
 
 
-import fuad.hajiyev.abc_app.dto.LikeCreateRequest;
+import fuad.hajiyev.abc_app.dto_request.LikeCreateRequest;
 import fuad.hajiyev.abc_app.dto_response.LikeResponse;
 import fuad.hajiyev.abc_app.entities.Like;
 import fuad.hajiyev.abc_app.entities.Post;

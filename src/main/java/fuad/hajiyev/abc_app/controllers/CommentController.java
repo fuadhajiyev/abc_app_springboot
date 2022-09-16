@@ -1,7 +1,7 @@
 package fuad.hajiyev.abc_app.controllers;
 
-import fuad.hajiyev.abc_app.dto.CommentCreateRequest;
-import fuad.hajiyev.abc_app.dto.CommentUpdateRequest;
+import fuad.hajiyev.abc_app.dto_request.CommentCreateRequest;
+import fuad.hajiyev.abc_app.dto_request.CommentUpdateRequest;
 import fuad.hajiyev.abc_app.entities.Comment;
 import fuad.hajiyev.abc_app.services.CommentService;
 import lombok.AllArgsConstructor;
