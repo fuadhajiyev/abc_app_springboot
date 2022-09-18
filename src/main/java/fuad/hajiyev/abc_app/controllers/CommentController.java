@@ -13,12 +13,14 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@AllArgsConstructor
 @RequestMapping("/comments")
 public class CommentController {
 
-    final CommentService commentService;
+    private CommentService commentService;
 
+    public CommentController(CommentService commentService) {
+        this.commentService = commentService;
+    }
 
     @GetMapping
     public ResponseEntity<List<Comment>> getAllComments(@RequestParam Optional<Long> userId,

@@ -13,12 +13,14 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@AllArgsConstructor
 @RequestMapping("/likes")
 public class LikeController {
 
-    final LikeService likeService;
+    private LikeService likeService;
 
+    public LikeController(LikeService likeService) {
+        this.likeService = likeService;
+    }
     @GetMapping
     public ResponseEntity<List<LikeResponse>> getAllLikes(
             @RequestParam Optional<Long> userId,

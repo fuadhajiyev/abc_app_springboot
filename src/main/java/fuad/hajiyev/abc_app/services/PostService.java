@@ -1,35 +1,53 @@
 package fuad.hajiyev.abc_app.services;
 
+import java.util.*;
+import java.util.stream.Collectors;
 
 import fuad.hajiyev.abc_app.dto_request.PostCreateRequest;
 import fuad.hajiyev.abc_app.dto_request.PostUpdateRequest;
+import fuad.hajiyev.abc_app.dto_response.LikeResponse;
 import fuad.hajiyev.abc_app.dto_response.PostResponse;
+import fuad.hajiyev.abc_app.entities.Like;
 import fuad.hajiyev.abc_app.entities.Post;
 import fuad.hajiyev.abc_app.entities.User;
 import fuad.hajiyev.abc_app.repos.PostRepository;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
 public class PostService {
 
-    final PostRepository postRepository;
-    final UserService userService;
 
+    private PostRepository postRepository;
+    private LikeService likeService;
+    private UserService userService;
+
+    public PostService(PostRepository postRepository,
+                       UserService userService) {
+        this.postRepository = postRepository;
+        this.userService = userService;
+    }
+
+    @Autowired
+    public  void setLikeService(LikeService likeService) {
+        this.likeService = likeService;
+    }
 
     public List<PostResponse> getPostsFromService(Optional<Long> userId) {
-        List <Post> list;
+        List<Post> list;
         if (userId.isPresent()) {
             list = postRepository.findByUserId(userId.get());
-        }else {
+        } else
             list = postRepository.findAll();
-        }
-        return list.stream().map(p -> new PostResponse(p)).collect(Collectors.toList());
+
+        return list.stream().map(p ->
+
+                {
+                    List<LikeResponse> likes = likeService.getAllLikesFromService(Optional.ofNullable(null), Optional.of(p.getId()));
+                    return new PostResponse(p, likes);}).collect(Collectors.toList());
     }
 
     public Post getPostByIdFromService(Long postId) {
@@ -55,7 +73,7 @@ public class PostService {
 
     public Post updateOnePostFromService(Long postId, PostUpdateRequest postUpdate) {
         Optional<Post> post = postRepository.findById(postId);
-        if(post.isPresent()) {
+        if (post.isPresent()) {
             Post toUpdate = post.get();
             toUpdate.setTitle(postUpdate.getTitle());
             toUpdate.setText(postUpdate.getText());

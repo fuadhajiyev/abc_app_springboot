@@ -8,6 +8,8 @@ import fuad.hajiyev.abc_app.entities.Post;
 import fuad.hajiyev.abc_app.entities.User;
 import fuad.hajiyev.abc_app.repos.LikeRepository;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,12 +17,20 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
 public class LikeService {
 
-    final LikeRepository likeRepository;
+    LikeRepository likeRepository;
     private UserService userService;
     private PostService postService;
+
+
+    public LikeService(LikeRepository likeRepository, UserService userService,
+                    @Lazy PostService postService) {
+        this.likeRepository = likeRepository;
+        this.userService = userService;
+        this.postService = postService;
+    }
+
 
     public List<LikeResponse> getAllLikesFromService(Optional<Long> uId, Optional<Long> pId) {
         List<Like> list;
@@ -31,9 +41,9 @@ public class LikeService {
             list = likeRepository.findByUserId(uId.get());
         } else if (pId.isPresent()) {
             list = likeRepository.findByPostId(pId.get());
-        } else {
+        } else
             list = likeRepository.findAll();
-        }
+
 
         return list.stream().map(like -> new LikeResponse(like)).collect(Collectors.toList());
     }

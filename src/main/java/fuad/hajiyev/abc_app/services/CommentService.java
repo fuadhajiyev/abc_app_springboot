@@ -13,12 +13,19 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
 public class CommentService {
 
-    final CommentRepository commentRepository;
-    final UserService userService;
-    final PostService postService;
+    private CommentRepository commentRepository;
+    private UserService userService;
+    private PostService postService;
+
+    public CommentService(CommentRepository commentRepository, UserService userService,
+                          PostService postService) {
+        this.commentRepository = commentRepository;
+        this.userService = userService;
+        this.postService = postService;
+    }
+
 
     public List<Comment> getAllCommentsFromService(Optional<Long> userId, Optional<Long> postId) {
 
@@ -53,7 +60,7 @@ public class CommentService {
             commentToSave.setUser(user);
             commentToSave.setText(creatComment.getText());
 
-            commentRepository.save(commentToSave);
+          return   commentRepository.save(commentToSave);
         }
 
         return null;

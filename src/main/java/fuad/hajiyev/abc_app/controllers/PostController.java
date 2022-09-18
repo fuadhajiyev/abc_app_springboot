@@ -15,12 +15,13 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/posts")
-@AllArgsConstructor
 public class PostController {
     /*   /posts?userId={userId}   */
-    final PostService postService;
+     PostService postService;
 
-
+    public PostController(PostService postService) {
+        this.postService = postService;
+    }
     @GetMapping
     public ResponseEntity<List<PostResponse>> getPosts(@RequestParam Optional<Long> userId) {
 
